@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import Results from "./routes/Results";
+import Drivers from "./routes/Drivers";
 import Schedule from "./routes/Schedule";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="results" element={<Results />} />
+          <Route path="drivers" element={<Drivers />} />
           <Route path="schedule" element={<Schedule />} />
           <Route
             path="*"

@@ -1,4 +1,4 @@
-# MotoGP Trackr
+# F1 Trackr
 # A Flatiron School Project App
 # Powered by insomnia and caffeine
 
@@ -7,7 +7,7 @@ External API for all data
 
 # Experience
 Overall goal
-    -View MotoGP stats filtered by seasons, with navigation to pull up data on individual drivers, teams, tracks, sessions, 
+    -View F1 stats filtered by seasons, with navigation to pull up data on individual drivers, teams, tracks, sessions, 
     -Each weekly race consists of practice, qualifying, and the race
 
     -Filter Structure:
@@ -25,7 +25,6 @@ Overall goal
                     * Display manufacturer points for event
 
                     -Session (dropdown select)
-                        
 
                     -Team (click on team)
                         * Display individual rider statistics/points
@@ -51,7 +50,11 @@ Overall goal
 # Structure
 App
     -Navbar
-        * 
+        -Results, Teams, Riders, Schedule
+    -StatsPage (stateful)
+        -Results
+            -Seasons
+                -Locations
 
 
 

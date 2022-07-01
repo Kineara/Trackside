@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 
 function EventCard( {event} ) {
     return (
-        <Card style={{ width: '200px' }}>
+        <Card border="primary">
             <Card.Header>{event.date.slice(0,10)}</Card.Header>
             <Card.Img variant="top" src={event.circuit.image} />
             <Card.Title>{event.competition.name}</Card.Title>

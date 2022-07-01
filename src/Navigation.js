@@ -12,7 +12,7 @@ function Navigation() {
       <div>
         <Nav variant="tabs" defaultActiveKey="/home">
           <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
-          <LinkContainer to="/results"><Nav.Link>Results</Nav.Link></LinkContainer>
+          <LinkContainer to="/drivers"><Nav.Link>Drivers</Nav.Link></LinkContainer>
           <LinkContainer to="/schedule"><Nav.Link>Schedule</Nav.Link></LinkContainer>
         </Nav>
         
