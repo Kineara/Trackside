@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+//import "./index.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
@@ -15,6 +16,14 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="results" element={<Results />} />
           <Route path="schedule" element={<Schedule />} />
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
