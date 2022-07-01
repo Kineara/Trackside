@@ -1,9 +1,13 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
+import CardGroup from "react-bootstrap/CardGroup";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import EventCard from "../EventCard";
 
 function Schedule() {
   const apiKey = "257203434be51bc7c354b3d3db85c138";
-  console.log("schedule loaded");
+
+  const [scheduledEvents, setScheduledEvents] = useState([]);
 
   // useEffect(() => {
   //   fetch(
@@ -23,9 +27,9 @@ function Schedule() {
   useEffect(() => {
     //Temporary to avoid hitting the API too often
     fetch("http://localhost:3004/schedule")
-      .then(r => r.json())
-      .then(data => displayEvents(data))
-  }, [])
+      .then((r) => r.json())
+      .then((data) => setScheduledEvents(data));
+  }, []);
 
   function postToServer(data, endpoint) {
     fetch(`http://localhost:3004/${endpoint}`, {
@@ -41,16 +45,18 @@ function Schedule() {
     });
   }
 
-  function displayEvents(eventArray) {
-    const eventCards = eventArray.map((event) => {
-      console.log(event.id)
-    });
-  }
-
   return (
-    <div>
-      <h2>Schedule!</h2>
-    </div>
+    <Container>
+      <Row xs={1} md={2} className="g-4">
+        
+          {scheduledEvents.map((event) =>
+            event.type === "Race" ? (
+              <EventCard event={event} key={event.id} />
+            ) : null
+          )}
+        
+      </Row>
+    </Container>
   );
 }
 

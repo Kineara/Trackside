@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './Navigation';
 import Container from 'react-bootstrap/Container'
+import { Outlet } from "react-router-dom";
 
 //import StatsPage from './StatsPage';
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <Container>
       <Navigation />
+      <Outlet />
     </Container>
   );
 }
