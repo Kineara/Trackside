@@ -1,19 +1,13 @@
-# F1 Trackr
+## Trackside
 # A Flatiron School Project App
 # Powered by insomnia and caffeine
 
 External API for all data
-    https://developer.sportradar.com/docs/read/racing/MotoGP_v2#motogp-api-overview
+    https://api-sports.io/documentation/formula-1/v1
 
 # Experience
 Overall goal
     -View F1 stats filtered by seasons, with navigation to pull up data on individual drivers, teams, tracks, sessions, 
-
-
-                        
-
-
-
 
 # Getting Started with Create React App
 

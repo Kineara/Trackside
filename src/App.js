@@ -38,7 +38,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<StatsPage />}>
-            <Route path="home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="drivers" element={<Drivers />} />
             <Route
               path="schedule"
