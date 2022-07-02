@@ -39,7 +39,7 @@ function Event({ eventInfo }) {
           </div>
           <div>Status: {eventRace.status}</div>
         </div>
-        <img src={eventRace.circuit.image} />
+        <img src={eventRace.circuit.image} alt={eventRace.circuit.name}/>
         <Accordion>
           <Accordion.Item eventKey="practiceSessions">
             <Accordion.Header>Practice Sessions</Accordion.Header>
