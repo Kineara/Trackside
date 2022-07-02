@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import ResultsFilter from "../ResultsFilter";
+import { v4 as uuidv4 } from "uuid";
 
 function Results() {
   const [formSelectedSeason, setFormSelectedSeason] =

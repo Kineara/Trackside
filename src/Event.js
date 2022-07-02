@@ -1,6 +1,8 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import EventSessions from "./EventSessions";
+import Button from 'react-bootstrap/Button'
+
 
 function Event({ eventInfo }) {
   const [eventRace] = eventInfo.filter((event) => {
@@ -15,7 +17,18 @@ function Event({ eventInfo }) {
     return event.type.indexOf("Qualifying") !== -1;
   });
 
-  //console.log(eventRace);
+  function watchBtnHandler(individualEvent) {
+    fetch("http://localhost:3004/watchedEvents", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(individualEvent)
+    })
+    .then(r => r.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+  }
 
   return (
     <Accordion.Item eventKey={eventRace.id}>
@@ -25,6 +38,7 @@ function Event({ eventInfo }) {
       </Accordion.Header>
       <Accordion.Body>
         <div>
+        <Button variant="primary" size="sm" onClick={() => watchBtnHandler(eventInfo)}>Watch Event</Button>
           <div>
             <b>Race Information:</b>
           </div>
