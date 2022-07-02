@@ -1,54 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Accordion from "react-bootstrap/Accordion";
 import Event from "../Event";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
+function Schedule({ currentDate }) {
+  const [scheduledEvents, setScheduledEvents] = useState([]);
 
-function Schedule( { currentDate, futureEvents}) {
-  //const [scheduledEvents, setScheduledEvents] = useState([]);
+  function parseEvents(events) {
+    // Filter out past events to only display future events in Schedule
+    const futureEvents = events.filter(
+      (event) => event.date >= currentDate
+    );
+    const eventIds = [
+      ...new Set(futureEvents.map((event) => event.competition.id)),
+    ];
+    return eventIds.map((eventId) => {
+      return events.filter((event) => event.competition.id === eventId);
+    });
+  }
 
-  // useEffect(() => {
-  //   fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
-  //     method: "GET",
-  //     headers: {
-  //       "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
-  //       "x-rapidapi-host": "v1.formula-1.api-sports.io",
-  //     },
-  //     redirect: "follow",
-  //   })
-  //     .then((r) => r.json())
-  //     //.then((data) => postToServer(data.response, "schedule"))
-  //     .then((data) => setScheduledEvents(data.response))
-  // }, []);
-
-  // useEffect(() => {
-  //   //Temporary to avoid hitting the API too often
-  //   fetch("http://localhost:3004/schedule")
-  //     .then((r) => r.json())
-  //     .then((data) => setScheduledEvents(data));
-  // }, []);
-
-  // function postToServer(data, endpoint) {
-  //   fetch(`http://localhost:3004/${endpoint}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // }
-
-
-  // Get array of competition IDs
-
-  
+  useEffect(() => {
+    fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+        "x-rapidapi-host": "v1.formula-1.api-sports.io",
+      },
+      redirect: "follow",
+    })
+      .then((r) => r.json())
+      .then((data) => setScheduledEvents(parseEvents(data.response)))
+  }, []);
 
   return (
     <Container>
       <div>Scheduled Events as of {currentDate}</div>
       <Accordion>
-        {futureEvents.map((event) => <Event eventInfo={event} key={uuidv4()} />)}
+        {scheduledEvents.map((event) => (
+          <Event eventInfo={event} key={uuidv4()} />
+        ))}
       </Accordion>
     </Container>
   );

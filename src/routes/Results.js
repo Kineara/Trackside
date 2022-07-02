@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-import Accordion from "react-bootstrap/Accordion";
 import Table from "react-bootstrap/Table";
 import ResultsFilter from "../ResultsFilter";
-import teamResults2021 from "../testData/teamResults2021";
-import driversRankings2021 from "../testData/driversRankings2021";
 
 function Results() {
   const [formSelectedSeason, setFormSelectedSeason] =
