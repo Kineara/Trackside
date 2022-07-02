@@ -1,9 +1,8 @@
 import { React, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import EventCard from "../EventCard";
 import Accordion from "react-bootstrap/Accordion";
-import Event from '../Event';
+import Event from "../Event";
 
 function Schedule() {
   const [scheduledEvents, setScheduledEvents] = useState([]);
@@ -4497,20 +4496,40 @@ function Schedule() {
     },
   ];
 
+
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+    
+    const currentDate = yyyy + '-' + mm + '-' + dd;
+
+
   useEffect(() => {
     setScheduledEvents(tempScheduleData);
   }, []);
 
-  const renderedEvents = scheduledEvents.map((event) => {
-    if (event.type==="Race") {
-      return <Event individualEvent={event} />
-    }
+  //Separate future and past events
+  const futureEvents = scheduledEvents.filter(event => event.date>= currentDate);
+  //console.log(futureEvents);
+
+  // Get array of competition IDs
+  const eventIds = [
+    ...new Set(futureEvents.map((event) => event.competition.id)),
+  ];
+
+  // iterate over scheduledEvents using ids to return all events with that id
+  // Each eventById is an array of events with a specific competition ID
+  const eventsById = eventIds.map((eventId) => {
+    return scheduledEvents.filter((event) => event.competition.id === eventId);
   })
+  
 
   return (
     <Container>
+      <div>Scheduled Events as of {currentDate}</div>
       <Accordion>
-        {renderedEvents}
+        {eventsById.map((event) => <Event eventInfo={event} />)}
       </Accordion>
     </Container>
   );

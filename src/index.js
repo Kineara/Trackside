@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Drivers from "./routes/Drivers";
 import Schedule from "./routes/Schedule";
+import Results from "./routes/Results";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="drivers" element={<Drivers />} />
           <Route path="schedule" element={<Schedule />} />
+          <Route path="results" element={<Results />} />
           <Route
             path="*"
             element={
