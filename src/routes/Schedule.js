@@ -2,6 +2,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Accordion from "react-bootstrap/Accordion";
 import Event from "../Event";
+import { v4 as uuidv4 } from 'uuid';
+
 
 function Schedule( { currentDate, futureEvents}) {
   //const [scheduledEvents, setScheduledEvents] = useState([]);
@@ -46,7 +48,7 @@ function Schedule( { currentDate, futureEvents}) {
     <Container>
       <div>Scheduled Events as of {currentDate}</div>
       <Accordion>
-        {futureEvents.map((event) => <Event eventInfo={event} />)}
+        {futureEvents.map((event) => <Event eventInfo={event} key={uuidv4()} />)}
       </Accordion>
     </Container>
   );

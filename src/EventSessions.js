@@ -4,9 +4,8 @@ import Accordion from "react-bootstrap/Accordion";
 
 function eventSessions({sessionInfo}) {
     const renderedSessions = sessionInfo.map((session) => {
-        //console.log(session);
         return (
-            <Accordion.Item eventKey={session.id}>
+            <Accordion.Item eventKey={session.id} key={session.id}>
                 <Accordion.Header>{session.type}</Accordion.Header>
                 <Accordion.Body>
                     <p><b>Session Info:</b></p>

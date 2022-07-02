@@ -21,6 +21,7 @@ function App() {
   }, []);
 
   function getFutureEvents() {
+    // Filter out past events to only display future events in Schedule
     const futureEvents = fetchedEvents.filter(
       (event) => event.date >= currentDate
     );
@@ -31,20 +32,6 @@ function App() {
       return fetchedEvents.filter((event) => event.competition.id === eventId);
     });
   }
-
-  function getPastEvents() {
-    const pastEvents = fetchedEvents.filter(
-      (event) => event.date <= currentDate
-    );
-    const eventIds = [
-      ...new Set(pastEvents.map((event) => event.competition.id)),
-    ];
-    return eventIds.map((eventId) => {
-      return fetchedEvents.filter((event) => event.competition.id === eventId);
-    });
-  }
-
-  console.log(getPastEvents());
 
   return (
     <>
@@ -62,15 +49,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path="results"
-              element={
-                <Results
-                  currentDate={currentDate}
-                  pastEvents={getPastEvents()}
-                />
-              }
-            />
+            <Route path="results" element={<Results />} />
             <Route path="watchlist" element={<Watchlist />} />
             <Route
               path="*"
