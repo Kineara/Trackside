@@ -39,6 +39,7 @@ function Event({ eventInfo }) {
       <Accordion.Body>
         <div>
         <Button variant="primary" size="sm" onClick={() => watchBtnHandler(eventInfo)}>Watch Event</Button>
+        <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
           <div>
             <b>Race Information:</b>
           </div>
@@ -53,7 +54,6 @@ function Event({ eventInfo }) {
           </div>
           <div>Status: {eventRace.status}</div>
         </div>
-        <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
         <Accordion>
           <Accordion.Item eventKey="practiceSessions">
             <Accordion.Header>Practice Sessions</Accordion.Header>
