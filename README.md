@@ -8,53 +8,10 @@ External API for all data
 # Experience
 Overall goal
     -View F1 stats filtered by seasons, with navigation to pull up data on individual drivers, teams, tracks, sessions, 
-    -Each weekly race consists of practice, qualifying, and the race
-
-    -Filter Structure:
-
-        -Results (Navbar):
-
-            -Seasons (Dropdown select by year)
-                * Display overall points standings
-                * Display full schedule of event locations with dates
-
-                - Location (click on event)
-                    * Display teams competing
-                    * Display manufacturers competing
-                    * Display team points for individual event
-                    * Display manufacturer points for event
-
-                    -Session (dropdown select)
-
-                    -Team (click on team)
-                        * Display individual rider statistics/points
-
-                    -Manufacturer (click on manufacturer)
-                        * Display list of riders
-                        * Display overall manufacturer points for event
-
-                -Riders:
-                    * Display clickable list of riders in season
-                    * Show rider statistics for season when clicked
-
-                -Manufacturers:
-                    * Display clickable list of manufacturers in season
-                    * Show manufacturer statistics when clicked
-            
-                -Teams:
-                    * Display clickable list of teams in season
-                    * Show team stats when clicked
 
 
                         
-# Structure
-App
-    -Navbar
-        -Results, Teams, Riders, Schedule
-    -StatsPage (stateful)
-        -Results
-            -Seasons
-                -Locations
+
 
 
 

@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Accordion from "react-bootstrap/Accordion";
+import ResultsFilter from "../ResultsFilter";
 
-function Results() {
-    return (
-        <h2>Results!</h2>
-    )
+function Results({ pastEvents }) {
+  return (
+    <Container>
+      <ResultsFilter />
+    </Container>
+  );
 }
 
 export default Results;
