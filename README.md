@@ -1,6 +1,6 @@
-## Trackside
-# A Flatiron School Project App
-# Powered by insomnia and caffeine
+# Trackside
+## A Flatiron School Project App
+### Powered by insomnia and caffeine
 
 External API for all data
     https://api-sports.io/documentation/formula-1/v1
