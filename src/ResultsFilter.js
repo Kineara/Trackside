@@ -52,19 +52,11 @@ function ResultsFilter({
         <Form.Check
           inline
           type={"radio"}
-          id={"raceOpt"}
-          label={"Race Weekends"}
-          name={"stats-type"}
-          value={"races"}
-          defaultChecked
-        />
-        <Form.Check
-          inline
-          type={"radio"}
           id={"driverOpt"}
           label={"Drivers"}
           name={"stats-type"}
           value={"drivers"}
+          defaultChecked
         />
         <Form.Check
           inline
