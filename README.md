@@ -16,25 +16,25 @@ Overall goal
 - From the Trackside repo, use the command ```npm start```
 
 ### Component Structure
-index
-    App (router) (stateful)
-        StatsPage
-            Navigation
-        Home
-        Drivers (stateful)
-            DriversFilter
-            TeamAccordion
-                DriverCard
-        Results (stateful)
-            ResultsFilter
-        Schedule
-            Event
-                EventSessions
-        Watchlist
-            Event
-                EventSessions
+- index
+    - App (router) (stateful)
+        - StatsPage
+            - Navigation
+        - Home
+        - Drivers (stateful)
+            - DriversFilter
+            - TeamAccordion
+                - DriverCard
+        - Results (stateful)
+            - ResultsFilter
+        - Schedule
+            - Event
+                - EventSessions
+        - Watchlist
+            - Event
+                - EventSessions
 
-### To-do List
+### To-Do List
 - Clean up styling
 - Refactor App.js for more clarity
 - State audit
