@@ -24,8 +24,10 @@ function Event({
   return (
     <Accordion.Item eventKey={eventRace.id}>
       <Accordion.Header>
-        <b>{eventRace.date.slice(0, 10)}</b>..........{" "}
-        {eventRace.competition.name}
+        <b>{eventRace.date.slice(0, 10)}</b>
+        <span>...........</span>
+        
+        <span>{eventRace.competition.name}</span>
       </Accordion.Header>
       <Accordion.Body>
         <div>
