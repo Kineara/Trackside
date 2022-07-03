@@ -1,10 +1,14 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import EventSessions from "./EventSessions";
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
 
-
-function Event({ eventInfo, watchBtnText="Add to Watchlist", watchBtnType="success", handleWatchClick }) {
+function Event({
+  eventInfo,
+  watchBtnText = "Add to Watchlist",
+  watchBtnType = "success",
+  handleWatchClick,
+}) {
   const [eventRace] = eventInfo.filter((event) => {
     return event.type === "Race";
   });
@@ -25,8 +29,14 @@ function Event({ eventInfo, watchBtnText="Add to Watchlist", watchBtnType="succe
       </Accordion.Header>
       <Accordion.Body>
         <div>
-        <Button variant={watchBtnType} size="sm" onClick={() => handleWatchClick(eventInfo)}>{watchBtnText}</Button>
-        <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
+          <Button
+            variant={watchBtnType}
+            size="sm"
+            onClick={() => handleWatchClick(eventInfo)}
+          >
+            {watchBtnText}
+          </Button>
+          <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
           <div>
             <b>Race Information:</b>
           </div>

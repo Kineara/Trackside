@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import ResultsFilter from "../ResultsFilter";
 import { v4 as uuidv4 } from "uuid";
 
-function Results({seasonYears}) {
+function Results({ seasonYears }) {
   const [formSelectedSeason, setFormSelectedSeason] =
     useState("Select a season");
   const [formSelectedType, setFormSelectedType] = useState("drivers");

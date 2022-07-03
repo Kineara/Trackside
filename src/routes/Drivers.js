@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-
-import driversData from "../testData/driversData";
 import DriversFilter from "../DriversFilter";
 import Accordion from "react-bootstrap/Accordion";
 import TeamAccordion from "../TeamAccordion";
@@ -11,12 +9,6 @@ function Drivers({ seasonYears }) {
   const [drivers, setDrivers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filterSeason, setFilterSeason] = useState("Select a season");
-
-  // Temporary to avoid hitting the API too often
-
-  // useEffect(() => {
-  //   setDrivers(driversData);
-  // }, []);
 
   function seasonChangeHandler(event) {
     setFilterSeason(event.target.value);

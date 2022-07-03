@@ -8,7 +8,6 @@ function Watchlist({ watchedEvents }) {
   const [savedEvents, setSavedEvents] = useState([]);
 
   function getEventInfo() {
-    //console.log(watchedEvents);
     watchedEvents.forEach((event) => {
       fetch(
         `https://v1.formula-1.api-sports.io/races?competition=${event.id}&season=${event.season}`,

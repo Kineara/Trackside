@@ -3,7 +3,6 @@ import Accordion from "react-bootstrap/Accordion";
 import DriverCard from "./DriverCard";
 import Row from "react-bootstrap/Row";
 
-
 function TeamAccordion({ teamName, driversList }) {
   return (
     <Accordion.Item eventKey={teamName}>
@@ -11,8 +10,8 @@ function TeamAccordion({ teamName, driversList }) {
       <Accordion.Body>
         <Row xs={1} md={4} className="g-4">
           {driversList.map((driver) => (
-          <DriverCard driverStats={driver} key={driver.driver.name} />
-        ))}
+            <DriverCard driverStats={driver} key={driver.driver.name} />
+          ))}
         </Row>
       </Accordion.Body>
     </Accordion.Item>

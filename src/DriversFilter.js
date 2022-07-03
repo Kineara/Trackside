@@ -3,11 +3,14 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
-function DriversFilter({seasonYears, seasonValue, seasonChangeHandler, getDriversHandler}) {
+function DriversFilter({
+  seasonYears,
+  seasonValue,
+  seasonChangeHandler,
+  getDriversHandler,
+}) {
   return (
-    <Form 
-    onSubmit={getDriversHandler}
-    >
+    <Form onSubmit={getDriversHandler}>
       <InputGroup>
         <Form.Select
           aria-label="season select"
