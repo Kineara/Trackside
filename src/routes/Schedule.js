@@ -1,8 +1,7 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Accordion from "react-bootstrap/Accordion";
-import Event from "../Event";
+import { Container, Accordion } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import Event from "../components/Event";
 
 function Schedule({ currentDate, handleWatchClick, scheduledEvents }) {
   return (

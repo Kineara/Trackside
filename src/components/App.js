@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Drivers from "./routes/Drivers";
-import Schedule from "./routes/Schedule";
-import Results from "./routes/Results";
-import Watchlist from "./routes/Watchlist";
-import Home from "./routes/Home";
-import StatsPage from "./routes/StatsPage";
+import Drivers from "../routes/Drivers";
+import Schedule from "../routes/Schedule";
+import Results from "../routes/Results";
+import Watchlist from "../routes/Watchlist";
+import Home from "../routes/Home";
+import StatsPage from "../routes/StatsPage";
 
 function App() {
   const today = new Date();

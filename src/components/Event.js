@@ -1,7 +1,6 @@
 import React from "react";
-import Accordion from "react-bootstrap/Accordion";
+import { Accordion, Button } from "react-bootstrap";
 import EventSessions from "./EventSessions";
-import Button from "react-bootstrap/Button";
 
 function Event({
   eventInfo,
@@ -26,7 +25,7 @@ function Event({
       <Accordion.Header>
         <b>{eventRace.date.slice(0, 10)}</b>
         <span>...........</span>
-        
+
         <span>{eventRace.competition.name}</span>
       </Accordion.Header>
       <Accordion.Body>

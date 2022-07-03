@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Container from "react-bootstrap/Container";
-import DriversFilter from "../DriversFilter";
-import Accordion from "react-bootstrap/Accordion";
-import TeamAccordion from "../TeamAccordion";
+import { Container, Accordion } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import DriversFilter from "../components/DriversFilter";
+import TeamAccordion from "../components/TeamAccordion";
 
 function Drivers({ seasonYears }) {
   const [drivers, setDrivers] = useState([]);

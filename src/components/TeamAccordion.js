@@ -1,7 +1,6 @@
 import React from "react";
-import Accordion from "react-bootstrap/Accordion";
+import { Accordion, Row } from "react-bootstrap";
 import DriverCard from "./DriverCard";
-import Row from "react-bootstrap/Row";
 
 function TeamAccordion({ teamName, driversList }) {
   return (

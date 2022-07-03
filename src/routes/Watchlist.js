@@ -1,11 +1,10 @@
 import React from "react";
-import Accordion from "react-bootstrap/Accordion";
-import Container from "react-bootstrap/Container";
-import Event from "../Event";
+import { Accordion, Container } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 
-function Watchlist({ handleRemoveClick, watchedEventsInfo }) {
+import Event from "../components/Event";
 
+function Watchlist({ handleRemoveClick, watchedEventsInfo }) {
   return (
     <Container>
       <div>My Watched Events</div>

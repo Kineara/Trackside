@@ -1,7 +1,7 @@
 import React from "react";
-import Navigation from "../Navigation";
 import { Outlet } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import Navigation from "../components/Navigation";
 
 function StatsPage() {
   return (
