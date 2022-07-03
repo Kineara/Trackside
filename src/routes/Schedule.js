@@ -8,6 +8,7 @@ import schedData from "../testData/schedData";
 
 function Schedule({ currentDate, handleWatchClick }) {
   const [scheduledEvents, setScheduledEvents] = useState([]);
+  console.log(scheduledEvents);
 
   function parseEvents(events) {
     // Filter out past events to only display future events in Schedule

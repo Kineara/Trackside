@@ -27,9 +27,8 @@ function App() {
   }, []);
 
   function handleWatchClick(competitionArray) {
-    // Convert compId to JSON for commonality between fetched local server data and state data
-    const compId = { id: competitionArray[0].competition.id };
-    console.log(compId);
+    console.log(competitionArray);
+    const compId = { id: competitionArray[0].competition.id, season: competitionArray[0].season };
 
     function checkStateForId() {
       for (const obj of watchedCompetitionIds) {
@@ -73,7 +72,7 @@ function App() {
               }
             />
             <Route path="results" element={<Results />} />
-            <Route path="watchlist" element={<Watchlist />} />
+            <Route path="watchlist" element={<Watchlist watchedEvents={watchedCompetitionIds} />} />
             <Route
               path="*"
               element={

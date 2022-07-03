@@ -4,7 +4,7 @@ import EventSessions from "./EventSessions";
 import Button from 'react-bootstrap/Button'
 
 
-function Event({ eventInfo, watchBtnText="Watch Event", handleWatchClick }) {
+function Event({ eventInfo, watchBtnText="Add to Watchlist", watchBtnType="success", handleWatchClick }) {
   const [eventRace] = eventInfo.filter((event) => {
     return event.type === "Race";
   });
@@ -25,7 +25,7 @@ function Event({ eventInfo, watchBtnText="Watch Event", handleWatchClick }) {
       </Accordion.Header>
       <Accordion.Body>
         <div>
-        <Button variant="primary" size="sm" onClick={() => handleWatchClick(eventInfo)}>{watchBtnText}</Button>
+        <Button variant={watchBtnType} size="sm" onClick={() => handleWatchClick(eventInfo)}>{watchBtnText}</Button>
         <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
           <div>
             <b>Race Information:</b>
