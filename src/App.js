@@ -21,7 +21,6 @@ function App() {
 
   useEffect(() => {
     // Synchronize watchedCompetitionIds with current data in local server on initial page load
-    console.log("useEffect state sync fired");
     fetch("http://localhost:3004/watchedEvents")
       .then((r) => r.json())
       .then((data) => setWatchedCompetitionIds(data));
@@ -42,7 +41,6 @@ function App() {
   }, []);
 
   function handleWatchClick(competitionArray) {
-    console.log(competitionArray);
     const compId = {
       id: competitionArray[0].competition.id,
       season: competitionArray[0].season,
