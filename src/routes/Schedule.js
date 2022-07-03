@@ -4,7 +4,9 @@ import Accordion from "react-bootstrap/Accordion";
 import Event from "../Event";
 import { v4 as uuidv4 } from "uuid";
 
-function Schedule({ currentDate }) {
+import schedData from "../testData/schedData";
+
+function Schedule({ currentDate, handleWatchClick }) {
   const [scheduledEvents, setScheduledEvents] = useState([]);
 
   function parseEvents(events) {
@@ -20,25 +22,29 @@ function Schedule({ currentDate }) {
     });
   }
 
+  // useEffect(() => {
+  //   fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
+  //     method: "GET",
+  //     headers: {
+  //       "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+  //       "x-rapidapi-host": "v1.formula-1.api-sports.io",
+  //     },
+  //     redirect: "follow",
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => setScheduledEvents(parseEvents(data.response)))
+  // }, []);
+
   useEffect(() => {
-    fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
-      method: "GET",
-      headers: {
-        "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
-        "x-rapidapi-host": "v1.formula-1.api-sports.io",
-      },
-      redirect: "follow",
-    })
-      .then((r) => r.json())
-      .then((data) => setScheduledEvents(parseEvents(data.response)))
-  }, []);
+    setScheduledEvents(parseEvents(schedData));
+  }, [])
 
   return (
     <Container>
       <div>Scheduled Events as of {currentDate}</div>
       <Accordion>
         {scheduledEvents.map((event) => (
-          <Event eventInfo={event} key={uuidv4()} />
+          <Event eventInfo={event} handleWatchClick={handleWatchClick} key={uuidv4()} />
         ))}
       </Accordion>
     </Container>

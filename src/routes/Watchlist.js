@@ -19,7 +19,7 @@ function Watchlist() {
     <Container>
       <div>My Watched Events</div>
       <Accordion>
-        {watchedEvents.map(event => <Event eventInfo={event} key={uuidv4()} />)}
+        {watchedEvents.map(event => <Event eventInfo={event} watchBtnText={"Remove"} key={uuidv4()} />)}
       </Accordion>
     </Container>
   )

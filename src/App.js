@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Drivers from "./routes/Drivers";
 import Schedule from "./routes/Schedule";
@@ -10,9 +10,51 @@ import StatsPage from "./routes/StatsPage";
 function App() {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
   const currentDate = yyyy + "-" + mm + "-" + dd;
+
+  // Competitions retrieved from the external API share an ID that's common to all
+  // events pertaining to that competition, i.e., practice, qualifying, and the race
+  const [watchedCompetitionIds, setWatchedCompetitionIds] = useState([]);
+
+  useEffect(() => {
+    // Synchronize watchedCompetitionIds with current data in local server on initial page load
+    console.log("useEffect state sync fired");
+    fetch("http://localhost:3004/watchedEvents")
+      .then((r) => r.json())
+      .then((data) => setWatchedCompetitionIds(data));
+  }, []);
+
+  function handleWatchClick(competitionArray) {
+    // Convert compId to JSON for commonality between fetched local server data and state data
+    const compId = { id: competitionArray[0].competition.id };
+    console.log(compId);
+
+    function checkStateForId() {
+      for (const obj of watchedCompetitionIds) {
+        if (compId.id === obj.id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    if (!checkStateForId()) {
+      fetch("http://localhost:3004/watchedEvents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(compId),
+      })
+        .then((r) => r.json())
+        .then((data) =>
+          setWatchedCompetitionIds([...watchedCompetitionIds, data])
+        )
+        .catch((err) => console.log(err));
+    }
+  }
 
   return (
     <>
@@ -26,6 +68,7 @@ function App() {
               element={
                 <Schedule
                   currentDate={currentDate}
+                  handleWatchClick={handleWatchClick}
                 />
               }
             />

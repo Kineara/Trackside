@@ -4,7 +4,7 @@ import EventSessions from "./EventSessions";
 import Button from 'react-bootstrap/Button'
 
 
-function Event({ eventInfo }) {
+function Event({ eventInfo, watchBtnText="Watch Event", handleWatchClick }) {
   const [eventRace] = eventInfo.filter((event) => {
     return event.type === "Race";
   });
@@ -17,19 +17,6 @@ function Event({ eventInfo }) {
     return event.type.indexOf("Qualifying") !== -1;
   });
 
-  function watchBtnHandler(individualEvent) {
-    fetch("http://localhost:3004/watchedEvents", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(individualEvent)
-    })
-    .then(r => r.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  }
-
   return (
     <Accordion.Item eventKey={eventRace.id}>
       <Accordion.Header>
@@ -38,7 +25,7 @@ function Event({ eventInfo }) {
       </Accordion.Header>
       <Accordion.Body>
         <div>
-        <Button variant="primary" size="sm" onClick={() => watchBtnHandler(eventInfo)}>Watch Event</Button>
+        <Button variant="primary" size="sm" onClick={() => handleWatchClick(eventInfo)}>{watchBtnText}</Button>
         <img src={eventRace.circuit.image} alt={eventRace.circuit.name} />
           <div>
             <b>Race Information:</b>
