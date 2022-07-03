@@ -5,7 +5,6 @@ import Event from "../Event";
 import { v4 as uuidv4 } from "uuid";
 
 function Watchlist({ handleRemoveClick, watchedEventsInfo }) {
-  console.log(watchedEventsInfo);
 
   return (
     <Container>

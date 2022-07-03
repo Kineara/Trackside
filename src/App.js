@@ -19,8 +19,6 @@ function App() {
   const [watchedCompetitions, setWatchedCompetitions] = useState([]);
   const [seasonYears, setSeasonYears] = useState([]);
   const [scheduledEvents, setScheduledEvents] = useState([]);
-  //console.log(watchedCompetitions);
-  //console.log(scheduledEvents);
 
   function parseWatchedCompetitions() {
     let watchList = [];
@@ -61,7 +59,6 @@ function App() {
 
   useEffect(() => {
     // Synchronize watchedCompetitions with current data in local server on initial page load
-    console.log("appUseEffect fired");
     fetch("http://localhost:3004/watchedEvents")
       .then((r) => r.json())
       .then((data) => setWatchedCompetitions(data))
