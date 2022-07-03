@@ -16,14 +16,56 @@ function App() {
 
   // Competitions retrieved from the external API share an ID that's common to all
   // events pertaining to that competition, i.e., practice, qualifying, and the race
-  const [watchedCompetitionIds, setWatchedCompetitionIds] = useState([]);
+  const [watchedCompetitions, setWatchedCompetitions] = useState([]);
   const [seasonYears, setSeasonYears] = useState([]);
+  const [scheduledEvents, setScheduledEvents] = useState([]);
+  //console.log(watchedCompetitions);
+  //console.log(scheduledEvents);
+
+  function parseWatchedCompetitions() {
+    let watchList = [];
+
+    for (const competition of watchedCompetitions) {
+      for (const event of scheduledEvents) {
+        if (event[0].competition.id === competition.id) {
+          watchList.push(event);
+        }
+      }
+    }
+    return watchList;
+  }
 
   useEffect(() => {
-    // Synchronize watchedCompetitionIds with current data in local server on initial page load
+    fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+        "x-rapidapi-host": "v1.formula-1.api-sports.io",
+      },
+      redirect: "follow",
+    })
+      .then((r) => r.json())
+      .then((data) => setScheduledEvents(parseEvents(data.response)));
+  }, []);
+
+  function parseEvents(events) {
+    // Filter out past events to only display future events in Schedule
+    const futureEvents = events.filter((event) => event.date >= currentDate);
+    const eventIds = [
+      ...new Set(futureEvents.map((event) => event.competition.id)),
+    ];
+    return eventIds.map((eventId) => {
+      return events.filter((event) => event.competition.id === eventId);
+    });
+  }
+
+  useEffect(() => {
+    // Synchronize watchedCompetitions with current data in local server on initial page load
+    console.log("appUseEffect fired");
     fetch("http://localhost:3004/watchedEvents")
       .then((r) => r.json())
-      .then((data) => setWatchedCompetitionIds(data));
+      .then((data) => setWatchedCompetitions(data))
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -37,17 +79,17 @@ function App() {
       redirect: "follow",
     })
       .then((r) => r.json())
-      .then((data) => setSeasonYears(data.response));
+      .then((data) => setSeasonYears(data.response))
+      .catch((error) => console.log(error));
   }, []);
 
   function handleWatchClick(competitionArray) {
     const compId = {
       id: competitionArray[0].competition.id,
-      season: competitionArray[0].season,
     };
 
     function checkStateForId() {
-      for (const obj of watchedCompetitionIds) {
+      for (const obj of watchedCompetitions) {
         if (compId.id === obj.id) {
           return true;
         }
@@ -64,11 +106,21 @@ function App() {
         body: JSON.stringify(compId),
       })
         .then((r) => r.json())
-        .then((data) =>
-          setWatchedCompetitionIds([...watchedCompetitionIds, data])
-        )
+        .then((data) => setWatchedCompetitions([...watchedCompetitions, data]))
         .catch((err) => console.log(err));
     }
+  }
+
+  function handleRemoveClick(eventId) {
+    fetch(`http://localhost:3004/watchedEvents/${eventId}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then((d) => console.log(d));
+    const newWatchedCompetitions = watchedCompetitions.filter(
+      (competition) => competition.id !== eventId
+    );
+    setWatchedCompetitions(newWatchedCompetitions);
   }
 
   return (
@@ -87,6 +139,7 @@ function App() {
                 <Schedule
                   currentDate={currentDate}
                   handleWatchClick={handleWatchClick}
+                  scheduledEvents={scheduledEvents}
                 />
               }
             />
@@ -96,7 +149,12 @@ function App() {
             />
             <Route
               path="watchlist"
-              element={<Watchlist watchedEvents={watchedCompetitionIds} />}
+              element={
+                <Watchlist
+                  watchedEventsInfo={parseWatchedCompetitions()}
+                  handleRemoveClick={handleRemoveClick}
+                />
+              }
             />
             <Route
               path="*"
