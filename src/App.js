@@ -17,6 +17,7 @@ function App() {
   // Competitions retrieved from the external API share an ID that's common to all
   // events pertaining to that competition, i.e., practice, qualifying, and the race
   const [watchedCompetitionIds, setWatchedCompetitionIds] = useState([]);
+  const [seasonYears, setSeasonYears] = useState([]);
 
   useEffect(() => {
     // Synchronize watchedCompetitionIds with current data in local server on initial page load
@@ -26,9 +27,26 @@ function App() {
       .then((data) => setWatchedCompetitionIds(data));
   }, []);
 
+  useEffect(() => {
+    // Get available seasons on page load
+    fetch("https://v1.formula-1.api-sports.io/seasons", {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+        "x-rapidapi-host": "v1.formula-1.api-sports.io",
+      },
+      redirect: "follow",
+    })
+      .then((r) => r.json())
+      .then((data) => setSeasonYears(data.response));
+  }, []);
+
   function handleWatchClick(competitionArray) {
     console.log(competitionArray);
-    const compId = { id: competitionArray[0].competition.id, season: competitionArray[0].season };
+    const compId = {
+      id: competitionArray[0].competition.id,
+      season: competitionArray[0].season,
+    };
 
     function checkStateForId() {
       for (const obj of watchedCompetitionIds) {
@@ -61,7 +79,10 @@ function App() {
         <Routes>
           <Route path="/" element={<StatsPage />}>
             <Route path="/" element={<Home />} />
-            <Route path="drivers" element={<Drivers />} />
+            <Route
+              path="drivers"
+              element={<Drivers seasonYears={seasonYears} />}
+            />
             <Route
               path="schedule"
               element={
@@ -71,8 +92,14 @@ function App() {
                 />
               }
             />
-            <Route path="results" element={<Results />} />
-            <Route path="watchlist" element={<Watchlist watchedEvents={watchedCompetitionIds} />} />
+            <Route
+              path="results"
+              element={<Results seasonYears={seasonYears} />}
+            />
+            <Route
+              path="watchlist"
+              element={<Watchlist watchedEvents={watchedCompetitionIds} />}
+            />
             <Route
               path="*"
               element={

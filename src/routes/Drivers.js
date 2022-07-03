@@ -1,50 +1,71 @@
 import React, { useEffect, useState } from "react";
-import DriverCard from "../DriverCard";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+
 import driversData from "../testData/driversData";
+import DriversFilter from "../DriversFilter";
+import Accordion from "react-bootstrap/Accordion";
+import TeamAccordion from "../TeamAccordion";
+import { v4 as uuidv4 } from "uuid";
 
-function Drivers() {
+function Drivers({ seasonYears }) {
   const [drivers, setDrivers] = useState([]);
-
-  //   useEffect(() => {
-  //     fetch("https://v1.formula-1.api-sports.io/rankings/drivers?season=2022", {
-  //       method: "GET",
-  //       headers: {
-  //         "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
-  //         "x-rapidapi-host": "v1.formula-1.api-sports.io",
-  //       },
-  //       redirect: "follow",
-  //     })
-  //       .then((r) => r.json())
-  //       .then((data) => postToServer(data.response, "drivers"));
-  //   });
+  const [teams, setTeams] = useState([]);
+  const [filterSeason, setFilterSeason] = useState("Select a season");
 
   // Temporary to avoid hitting the API too often
 
+  // useEffect(() => {
+  //   setDrivers(driversData);
+  // }, []);
+
+  function seasonChangeHandler(event) {
+    setFilterSeason(event.target.value);
+  }
+
+  function getDriversHandler(event) {
+    event.preventDefault();
+
+    const url = `https://v1.formula-1.api-sports.io/rankings/drivers?season=${filterSeason}`;
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host": "api-formula-1.p.rapidapi.com",
+        "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => setDrivers(data.response))
+      .catch((err) => console.log(err));
+  }
+
   useEffect(() => {
-    setDrivers(driversData);
-  }, []);
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
 
-  //   function postToServer(data, endpoint) {
-  //     fetch(`http://localhost:3004/${endpoint}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-  //   }
-
-  const renderedDrivers = drivers.map((driver) => (
-    <DriverCard driverStats={driver} />
-  ));
+    const teamNames = drivers.map((driver) => driver.team.name);
+    const teamsFiltered = teamNames.filter(onlyUnique);
+    setTeams(teamsFiltered);
+  }, [drivers]);
 
   return (
     <Container>
-      <Row xs={1} md={4} className="g-4">
-        {renderedDrivers}
-      </Row>
+      <DriversFilter
+        seasonYears={seasonYears}
+        seasonValue={filterSeason}
+        seasonChangeHandler={seasonChangeHandler}
+        getDriversHandler={getDriversHandler}
+      />
+      <Accordion>
+        {teams.map((team) => (
+          <TeamAccordion
+            teamName={team}
+            driversList={drivers.filter((driver) => driver.team.name === team)}
+            key={uuidv4()}
+          />
+        ))}
+      </Accordion>
     </Container>
   );
 }

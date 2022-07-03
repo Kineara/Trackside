@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import ResultsFilter from "../ResultsFilter";
 import { v4 as uuidv4 } from "uuid";
 
-function Results() {
+function Results({seasonYears}) {
   const [formSelectedSeason, setFormSelectedSeason] =
     useState("Select a season");
   const [formSelectedType, setFormSelectedType] = useState("drivers");
@@ -42,7 +42,7 @@ function Results() {
       case "teams":
         const teamsData = fetchedData.map((data) => {
           return (
-            <tr key={data.id}>
+            <tr key={uuidv4()}>
               <td>{data.position}</td>
               <td>{data.team.name}</td>
               <td>{data.points}</td>
@@ -69,7 +69,7 @@ function Results() {
       case "drivers":
         const driversData = fetchedData.map((data) => {
           return (
-            <tr key={data.id}>
+            <tr key={uuidv4()}>
               <td>{data.position}</td>
               <td>{data.driver.name}</td>
               <td>{data.team.name}</td>
@@ -103,6 +103,7 @@ function Results() {
   return (
     <Container>
       <ResultsFilter
+        seasonYears={seasonYears}
         seasonSelection={formSelectedSeason}
         radioSelection={formSelectedType}
         getResultsHandler={getResultsHandler}

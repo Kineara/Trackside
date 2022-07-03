@@ -4,25 +4,26 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
 function ResultsFilter({
+  seasonYears,
   seasonSelection,
   radioSelection,
   seasonChangeHandler,
   radioChangeHandler,
   getResultsHandler,
 }) {
-  const [seasonYears, setSeasonYears] = useState([]);
-    useEffect(() => {
-      fetch("https://v1.formula-1.api-sports.io/seasons", {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
-          "x-rapidapi-host": "v1.formula-1.api-sports.io",
-        },
-        redirect: "follow",
-      })
-        .then((r) => r.json())
-        .then((data) => setSeasonYears(data.response))
-    }, []);
+  // const [seasonYears, setSeasonYears] = useState([]);
+  //   useEffect(() => {
+  //     fetch("https://v1.formula-1.api-sports.io/seasons", {
+  //       method: "GET",
+  //       headers: {
+  //         "x-rapidapi-key": "257203434be51bc7c354b3d3db85c138",
+  //         "x-rapidapi-host": "v1.formula-1.api-sports.io",
+  //       },
+  //       redirect: "follow",
+  //     })
+  //       .then((r) => r.json())
+  //       .then((data) => setSeasonYears(data.response))
+  //   }, []);
 
   return (
     <Form onSubmit={getResultsHandler}>
