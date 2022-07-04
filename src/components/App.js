@@ -60,14 +60,24 @@ function App() {
 
   function parseWatchedCompetitions() {
     // Filters scheduledEvents data by event ID to return events on watchlist
+
     let watchList = [];
 
-    for (const competition of watchedCompetitions) {
-      for (const event of scheduledEvents) {
-        if (event[0].competition.id === competition.id) {
-          watchList.push(event);
-        }
-      }
+    //   for (const competition of watchedCompetitions) {
+    //     for (const event of scheduledEvents) {
+    //       if (event[0].competition.id === competition.id) {
+    //         eventsById.push(event);
+    //       }
+    //     }
+    //   }
+    //   return watchList;
+    // }
+    for (const comp of watchedCompetitions) {
+      watchList.push(
+        scheduledEvents.filter(
+          (indEvent) => indEvent.competition.id === comp.id
+        )
+      );
     }
     return watchList;
   }
