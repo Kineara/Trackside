@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     // Synchronize watchedCompetitions with current data in local server on render
-    fetch("http://localhost:3004/watchedEvents")
+    fetch(`${process.env.REACT_APP_API_URL}/watchedEvents`)
       .then((r) => r.json())
       .then((data) => setWatchedCompetitions(data))
       .catch((error) => console.log(error));
@@ -63,15 +63,6 @@ function App() {
 
     let watchList = [];
 
-    //   for (const competition of watchedCompetitions) {
-    //     for (const event of scheduledEvents) {
-    //       if (event[0].competition.id === competition.id) {
-    //         eventsById.push(event);
-    //       }
-    //     }
-    //   }
-    //   return watchList;
-    // }
     for (const comp of watchedCompetitions) {
       watchList.push(
         scheduledEvents.filter(
@@ -111,7 +102,7 @@ function App() {
     }
 
     if (!checkStateForId()) {
-      fetch("http://localhost:3004/watchedEvents", {
+      fetch(`${process.env.REACT_APP_API_URL}/watchedEvents`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +116,7 @@ function App() {
   }
 
   function handleRemoveClick(eventId) {
-    fetch(`http://localhost:3004/watchedEvents/${eventId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/watchedEvents/${eventId}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
