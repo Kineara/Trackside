@@ -1,7 +1,6 @@
 import React from "react";
 import { Accordion, Container } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-
 import Event from "../components/Event";
 
 function Watchlist({ handleRemoveClick, watchedEventsInfo }) {

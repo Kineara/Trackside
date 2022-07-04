@@ -6,7 +6,7 @@ import Event from "../components/Event";
 function Schedule({ currentDate, handleWatchClick, scheduledEvents }) {
   return (
     <Container>
-      <div>Scheduled Events as of {currentDate}</div>
+      <h5>Scheduled Events as of {currentDate}</h5>
       <Accordion>
         {scheduledEvents.map((event) => (
           <Event

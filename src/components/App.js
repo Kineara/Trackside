@@ -8,32 +8,12 @@ import Home from "../routes/Home";
 import StatsPage from "../routes/StatsPage";
 
 function App() {
-  const today = new Date();
-  const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const yyyy = today.getFullYear();
-  const currentDate = yyyy + "-" + mm + "-" + dd;
-
-  // Competitions retrieved from the external API share an ID that's common to all
-  // events pertaining to that competition, i.e., practice, qualifying, and the race
   const [watchedCompetitions, setWatchedCompetitions] = useState([]);
   const [seasonYears, setSeasonYears] = useState([]);
   const [scheduledEvents, setScheduledEvents] = useState([]);
 
-  function parseWatchedCompetitions() {
-    let watchList = [];
-
-    for (const competition of watchedCompetitions) {
-      for (const event of scheduledEvents) {
-        if (event[0].competition.id === competition.id) {
-          watchList.push(event);
-        }
-      }
-    }
-    return watchList;
-  }
-
   useEffect(() => {
+    // Get scheduled event data on render
     fetch("https://v1.formula-1.api-sports.io/races?season=2022", {
       method: "GET",
       headers: {
@@ -43,22 +23,11 @@ function App() {
       redirect: "follow",
     })
       .then((r) => r.json())
-      .then((data) => setScheduledEvents(parseEvents(data.response)));
+      .then((data) => setScheduledEvents(data.response));
   }, []);
 
-  function parseEvents(events) {
-    // Filter out past events to only display future events in Schedule
-    const futureEvents = events.filter((event) => event.date >= currentDate);
-    const eventIds = [
-      ...new Set(futureEvents.map((event) => event.competition.id)),
-    ];
-    return eventIds.map((eventId) => {
-      return events.filter((event) => event.competition.id === eventId);
-    });
-  }
-
   useEffect(() => {
-    // Synchronize watchedCompetitions with current data in local server on initial page load
+    // Synchronize watchedCompetitions with current data in local server on render
     fetch("http://localhost:3004/watchedEvents")
       .then((r) => r.json())
       .then((data) => setWatchedCompetitions(data))
@@ -66,7 +35,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Get available seasons on page load
+    // Get available seasons on render
     fetch("https://v1.formula-1.api-sports.io/seasons", {
       method: "GET",
       headers: {
@@ -80,7 +49,44 @@ function App() {
       .catch((error) => console.log(error));
   }, []);
 
+  function getCurrentDate() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    const currentDate = yyyy + "-" + mm + "-" + dd;
+    return currentDate;
+  }
+
+  function parseWatchedCompetitions() {
+    // Filters scheduledEvents data by event ID to return events on watchlist
+    let watchList = [];
+
+    for (const competition of watchedCompetitions) {
+      for (const event of scheduledEvents) {
+        if (event[0].competition.id === competition.id) {
+          watchList.push(event);
+        }
+      }
+    }
+    return watchList;
+  }
+
+  function parseEvents(events) {
+    // Filter events by date to return future events
+    const futureEvents = events.filter(
+      (event) => event.date >= getCurrentDate()
+    );
+    const eventIds = [
+      ...new Set(futureEvents.map((event) => event.competition.id)),
+    ];
+    return eventIds.map((eventId) => {
+      return events.filter((event) => event.competition.id === eventId);
+    });
+  }
+
   function handleWatchClick(competitionArray) {
+    // Checks if event is already being watched, and adds to watchlist if not
     const compId = {
       id: competitionArray[0].competition.id,
     };
@@ -134,9 +140,9 @@ function App() {
               path="schedule"
               element={
                 <Schedule
-                  currentDate={currentDate}
+                  currentDate={getCurrentDate()}
                   handleWatchClick={handleWatchClick}
-                  scheduledEvents={scheduledEvents}
+                  scheduledEvents={parseEvents(scheduledEvents)}
                 />
               }
             />

@@ -63,7 +63,6 @@ function Results({ seasonYears }) {
             </Table>
           </>
         );
-        break;
 
       case "drivers":
         const driversData = fetchedData.map((data) => {
@@ -92,7 +91,6 @@ function Results({ seasonYears }) {
             </Table>
           </>
         );
-        break;
 
       default:
         return null;

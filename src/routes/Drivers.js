@@ -6,12 +6,7 @@ import TeamAccordion from "../components/TeamAccordion";
 
 function Drivers({ seasonYears }) {
   const [drivers, setDrivers] = useState([]);
-  const [teams, setTeams] = useState([]);
   const [filterSeason, setFilterSeason] = useState("Select a season");
-
-  function seasonChangeHandler(event) {
-    setFilterSeason(event.target.value);
-  }
 
   function getDriversHandler(event) {
     event.preventDefault();
@@ -30,26 +25,20 @@ function Drivers({ seasonYears }) {
       .catch((err) => console.log(err));
   }
 
-  useEffect(() => {
-    function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
-    }
-
-    const teamNames = drivers.map((driver) => driver.team.name);
-    const teamsFiltered = teamNames.filter(onlyUnique);
-    setTeams(teamsFiltered);
-  }, [drivers]);
+  function getTeamNames() {
+    return [...new Set(drivers.map((driver) => driver.team.name))];
+  }
 
   return (
     <Container>
       <DriversFilter
         seasonYears={seasonYears}
         seasonValue={filterSeason}
-        seasonChangeHandler={seasonChangeHandler}
+        seasonChangeHandler={(e) => setFilterSeason(e.target.value)}
         getDriversHandler={getDriversHandler}
       />
       <Accordion>
-        {teams.map((team) => (
+        {getTeamNames().map((team) => (
           <TeamAccordion
             teamName={team}
             driversList={drivers.filter((driver) => driver.team.name === team)}
