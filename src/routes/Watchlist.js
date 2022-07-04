@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import Event from "../components/Event";
 
 function Watchlist({ handleRemoveClick, watchedEventsInfo }) {
-  //console.log(watchedEventsInfo);
   return (
     <Container>
       <div>My Watched Events</div>

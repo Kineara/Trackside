@@ -8,7 +8,6 @@ function Event({
   watchBtnType = "success",
   handleWatchClick,
 }) {
-  //console.log(eventInfo);
   const [eventRace] = eventInfo.filter((event) => {
     return event.type === "Race";
   });
